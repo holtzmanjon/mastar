@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import matplotlib
+matplotlib.use('Agg')
+import nn
+import numpy as np
+import mastar
+
+#file='new_apogee_stack_allrot'
+#mastar.stack(mastar='mastar-goodspec-v2_7_1-trunk',apogee='r13/l33/allStar-r13-l33-58932beta',out=file,cm=False) 
+
+#infile='mastar-homogenize-stack'
+#file='mastar-homogenize_apogee_stack'
+#mastar.stack(mastar=infile,apogee='r13/l33/allStar-r13-l33-58932beta',out=file,cm=False) 
+
+# match with APOGEE
+#infile='mastar-homogenize-stack-v3_0_1-v1_5_0'
+#file='mastar-homogenize-stack-v3_0_1-v1_5_0_apogee'
+#mastar.stack(infile=infile,apogee='r13/l33/allStar-r13-l33-58932beta',out=file,cm=False) 
+
+#file='mastar-homogenize_apogee_stack_synth'
+#model='mastar-homogenize_stack_synthallrot600'
+file='mastar-homogenize-stack-v3_0_1-v1_5_0_apogee_synth'
+model='mastar-homogenize-stack-v3_0_1-v1_5_0_apogee_synthallrot600'
+
+
+labels=['TEFF','LOGG','[M/H]','[alpha/M]','LOG(VSINI)']
+print('calling train...')
+#nn.train(file=file,name='new_stack',raw=False, steps=3e5, label_names=labels, num_neurons=[150,150],
+#         teff=[3200,7500],
+#         ind_label=np.arange(len(labels)),fitfrac=0.9,normalize=True,pixels=[200,-200],trim=False)
+nn.train(file=file,name=model,raw=False, steps=1e5, label_names=labels, num_neurons=[150,150],
+         teff=[3200,32500],
+         ind_label=np.arange(len(labels)),fitfrac=0.9,normalize=True,pixels=[600,-200],trim=False)
+
+#nn.plot(file=file,model=model,plotspec=True,validation=False,pixels=[600,-200],normalize=True,trim=False)       
